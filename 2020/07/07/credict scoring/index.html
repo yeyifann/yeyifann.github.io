@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Ethan ye">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ethan ye">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="typora-root-url: ..&#x2F;..&#x2F;source 1 Data exploration1.1 Data overview信用卡评分是风险控制模型之一，它根据客户的各种属性，利用逻辑回归模型，对客户的信用好坏进行分类并评分，据此决定是否给予借贷业务，从而减少在金融借贷上的风险。 本文使用kaggle的数据源（givemesomecredit)，一共包含了15万个申贷人的过往两年信息。所有数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="credict scoring">
+<meta property="og:url" content="https://yeyifann.github.io/2020/07/07/credict%20scoring/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="typora-root-url: ..&#x2F;..&#x2F;source 1 Data exploration1.1 Data overview信用卡评分是风险控制模型之一，它根据客户的各种属性，利用逻辑回归模型，对客户的信用好坏进行分类并评分，据此决定是否给予借贷业务，从而减少在金融借贷上的风险。 本文使用kaggle的数据源（givemesomecredit)，一共包含了15万个申贷人的过往两年信息。所有数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1593295097/data_dict_ayebgf.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/porpotion_y2y4s7.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/boxplot2_nd5s1a.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/debtratio_mywsuk.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1593499498/%E6%88%AA%E5%B1%8F2020-06-30_%E4%B8%8A%E5%8D%887.43.31_lfidsu.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/line_k9boso.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/debt_rkjflw.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/income_jpaahu.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742959/3059_gthtwg.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/open_mcav5w.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/90_gsxtp5.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/real_io6agi.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/6089_oh5iki.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742959/depent_pqsywj.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/heat_q7ln7o.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/hist_zrvdkb.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742963/train_set_oe8ukz.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/validation_b0vvj2.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/auc_hfofxn.png">
+<meta property="article:published_time" content="2020-07-07T14:09:49.064Z">
+<meta property="article:modified_time" content="2020-07-07T14:09:49.064Z">
+<meta property="article:author" content="Ethan ye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1593295097/data_dict_ayebgf.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>credict scoring · Ethan&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/391540_icon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ethan&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">credict scoring</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ethan's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/ML.jpeg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            credict scoring
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.9k</span>Reading time: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/07/07</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>typora-root-url: ../../source</p>
+<h1 id="1-Data-exploration"><a href="#1-Data-exploration" class="headerlink" title="1 Data exploration"></a><strong>1 Data exploration</strong></h1><h2 id="1-1-Data-overview"><a href="#1-1-Data-overview" class="headerlink" title="1.1 Data overview"></a>1.1 Data overview</h2><p>信用卡评分是风险控制模型之一，它根据客户的各种属性，利用逻辑回归模型，对客户的信用好坏进行分类并评分，据此决定是否给予借贷业务，从而减少在金融借贷上的风险。</p>
+<p>本文使用kaggle的数据源（givemesomecredit)，一共包含了15万个申贷人的过往两年信息。所有数据分析处理建模将使用python完成。</p>
+<h2 id="1-2-Data-cleaning"><a href="#1-2-Data-cleaning" class="headerlink" title="1.2 Data cleaning"></a>1.2 Data cleaning</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df_train = pd.read_csv(<span class="string">'cs-training.csv'</span>)</span><br><span class="line">df_test = pd.read_csv(<span class="string">'cs-test.csv'</span>)</span><br><span class="line"></span><br><span class="line">df_train = df_train.drop(columns = [<span class="string">'Unnamed: 0'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#缺失值的比例</span></span><br><span class="line">null_val_sums = df_train.isnull().sum()</span><br><span class="line">missing_value = pd.DataFrame(&#123;<span class="string">"Column"</span>: null_val_sums.index, <span class="string">"Number of Null Values"</span>: null_val_sums.values, <span class="string">"Proportion"</span>: null_val_sums.values /len(df_train)&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>首先对变量进行一个简单的介绍,SeriousDlqin2yrs是我们的目标变量，1表示的是坏客户，0表示的是好客户。</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1593295097/data_dict_ayebgf.png" alt=""></p>
+<p>接下来是对缺失值进行处理，通过计算缺失值的比例我们可以发现MonthlyIncome缺失了快20%的数据（29731条缺失值），NumberOfDependents缺失了2.6%的数据（3924条缺失值）。由于MonthlyIncome的缺失数量太大，用单一的数值进行填补（中位数，平均值等）效果可能不太好，本文选用随机森林填补数据。该方法使用回归算法，其认为标签与特征矩阵存在某种联系，在这里，我们把月收入当成标签，其他的变量组成新的特征矩阵。对于月收入中没有缺失的部分，就是我们的y_train，缺失的部分要预测的就是我们的y_test。这样的做法对于某一个特征大量缺失，其他特征很完整的情况非常适用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#using randomforest to predict null value</span></span><br><span class="line">process_df = df_train.iloc[:,[<span class="number">5</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br><span class="line">known_income = process_df[process_df.MonthlyIncome.notnull()].values</span><br><span class="line">unknown = process_df[process_df.MonthlyIncome.isnull()].values</span><br><span class="line">X = known_income[:,<span class="number">1</span>:]</span><br><span class="line">Y = known_income[:,<span class="number">0</span>]</span><br><span class="line">rfr = RandomForestRegressor(random_state=<span class="number">0</span>, </span><br><span class="line">    n_estimators=<span class="number">300</span>,max_depth=<span class="number">3</span>,n_jobs=<span class="number">-1</span>)<span class="comment">#random_state：随机种子，一个确定的随机值，让结果容易复现；n_estimators 决策树个数，个数至少一百个；max——depth：设置树的最大深度；n_jobs：并行个数，1=不并行，-1=cpu有多少core就启动多少job。</span></span><br><span class="line">rfr.fit(X,Y)</span><br><span class="line"></span><br><span class="line">predicted = rfr.predict(unknown[:,<span class="number">1</span>:]).round(<span class="number">0</span>)</span><br><span class="line">df_train.loc[(df_train.MonthlyIncome.isnull()),<span class="string">'MonthlyIncome'</span>] = predicted</span><br><span class="line"></span><br><span class="line">df_train[<span class="string">'NumberOfDependents'</span>].fillna(<span class="number">0</span>,inplace=<span class="literal">True</span>)<span class="comment">#将空行替换成零</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NumberOfDependents，有理由相信客户在填写这行资料时留空白是表示没有亲属，所以可以将其替换成零。</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/porpotion_y2y4s7.png" alt=""></p>
+<center>缺失比例</center>
+
+<p>接下来是对异常值的处理，通过绘制箱形图分析各个变量的异常并进行处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">df_date = df_train[[<span class="string">'NumberOfTime30-59DaysPastDueNotWorse'</span>,<span class="string">'NumberOfTimes90DaysLate'</span>,<span class="string">'NumberOfTime60-89DaysPastDueNotWorse'</span>]]</span><br><span class="line">plt.boxplot(x=df_date.values,labels=df_date.columns,whis=<span class="number">1.5</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/boxplot2_nd5s1a.png" alt=""></p>
+<center>箱形图</center>
+
+<p>可以发现’NumberOfTime30- 59DaysPastDueNotWorse‘，’NumberOfTime60-89DaysPastDueNotWorse’ 和 ’NumberOfTimes90DaysLate’有相同的异常值，96和98，应该给予删除。年龄变量出现零岁也应该剔除。观察负债率debt ratio发现在0.975分位上的数值，有2.5%的人拥有负债超过3500倍于他们的资产,并且在这3500条数据里只有185条数据有月收入的数据，有月收入数据的值不是1就是0。因此这些数据应该给予移除。’RevolvingUtilizationOfUnsecuredLines’这个变量是个比率应该为小数形式表示，因此应剔除掉大于1的整数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#debt ratio</span></span><br><span class="line">df_train.DebtRatio.quantile([<span class="number">0.975</span>])</span><br><span class="line">df_train[df_train[<span class="string">'DebtRatio'</span>] &gt; <span class="number">3489.025</span>][[<span class="string">'SeriousDlqin2yrs'</span>,<span class="string">'MonthlyIncome'</span>]].describe()</span><br><span class="line">df_train = df_train.drop(index = df_train[df_train[<span class="string">'DebtRatio'</span>] &gt; <span class="number">3489.025</span>].index)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/debtratio_mywsuk.png" alt=""></p>
+<center>debt ratio</center>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除两年逾期次数的异常值</span></span><br><span class="line">df_train = df_train.drop(index = df_train[df_train[<span class="string">'NumberOfTime30-59DaysPastDueNotWorse'</span>].isin([<span class="number">96</span>,<span class="number">98</span>])].index.tolist())</span><br><span class="line"><span class="comment">#删除年龄为零</span></span><br><span class="line">df_train = df_train.drop(index = df_train[df_train[<span class="string">'age'</span>].isin([<span class="number">0</span>])].index)</span><br><span class="line"><span class="comment">#删除'RevolvingUtilizationOfUnsecuredLines‘过大的值</span></span><br><span class="line">df_train = df_train.drop(index = df_train[df_train[<span class="string">'RevolvingUtilizationOfUnsecuredLines'</span>]&gt;<span class="number">10</span>].index)</span><br><span class="line"></span><br><span class="line"><span class="comment">#对调1和0</span></span><br><span class="line">df_train[<span class="string">'SeriousDlqin2yrs'</span>]=<span class="number">1</span>-df_train[<span class="string">'SeriousDlqin2yrs'</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对于’Serious- Dlqin2yrs’，我们将它的1和0对调使其符合习惯，1表示好客户，0表示坏客户。</p>
+<h1 id="2-特征工程"><a href="#2-特征工程" class="headerlink" title="2. 特征工程"></a>2. 特征工程</h1><p>本次的数据集来源于kaggle，kaggle的数据已经进行过特征的选取了。实际上在基于业务建模时，获得的数据可能会有几百个变量，需要用一些方法去选取变量。选取变量一般要考虑很多方面，包括变量的预测能力，变量的相关性，变量在业务上的解释性等。预测变量衡量的指标有信息增益，基尼系数，IV(information value)等。</p>
+<h2 id="2-1特征分箱"><a href="#2-1特征分箱" class="headerlink" title="2.1特征分箱"></a>2.1特征分箱</h2><p>特征分箱是对各个特征变量进行分组，在信用卡评分模型上，分组的意义在于对每个变量不同组设置不同的评分规则。举个例子，比如我们通过分析发现25岁以下的违约率比较高，我们就给25岁以下的组打一个比较低的分数，同样的对每一组安装信用打一个分数，最终加和得到总分，以此来判断此人的信用情况。</p>
+<p>本文利用决策树进行分箱处理，实现思路先利用sklearn决策树信息增益最大化获得分箱的节点划分值，再基于划分值对变量进行分箱，最后计算各个分箱的woe和iv值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimal_binning_boundary</span><span class="params">(x: pd.Series, y: pd.Series, nan: float = <span class="number">-999.</span>)</span> -&gt; list:</span></span><br><span class="line">    boundary = []  <span class="comment"># 待return的分箱边界值列表</span></span><br><span class="line">    </span><br><span class="line">    x = x.fillna(nan).values  <span class="comment"># 填充缺失值</span></span><br><span class="line">    y = y.values</span><br><span class="line">    </span><br><span class="line">    clf = DecisionTreeClassifier(criterion=<span class="string">'entropy'</span>,    <span class="comment">#“信息熵”最小化准则划分</span></span><br><span class="line">                                 max_leaf_nodes=<span class="number">6</span>,       <span class="comment"># 最大叶子节点数</span></span><br><span class="line">                                 min_samples_leaf=<span class="number">0.05</span>)  <span class="comment"># 叶子节点样本数量最小占比</span></span><br><span class="line"></span><br><span class="line">    clf.fit(x.reshape(<span class="number">-1</span>, <span class="number">1</span>), y.astype(<span class="string">'int'</span>))  <span class="comment"># 训练决策树</span></span><br><span class="line">    </span><br><span class="line">    n_nodes = clf.tree_.node_count</span><br><span class="line">    children_left = clf.tree_.children_left</span><br><span class="line">    children_right = clf.tree_.children_right</span><br><span class="line">    threshold = clf.tree_.threshold</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n_nodes):</span><br><span class="line">        <span class="keyword">if</span> children_left[i] != children_right[i]:  <span class="comment"># 获得决策树节点上的划分边界值</span></span><br><span class="line">            boundary.append(threshold[i])</span><br><span class="line"></span><br><span class="line">    boundary.sort()</span><br><span class="line"></span><br><span class="line">    min_x = x.min()</span><br><span class="line">    max_x = x.max() + <span class="number">0.1</span>  <span class="comment"># +0.1是为了考虑后续groupby操作时，能包含特征最大值的样本</span></span><br><span class="line">    boundary = [min_x] + boundary + [max_x]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> boundary</span><br><span class="line">cut1 = optimal_binning_boundary(x=df_train[<span class="string">'age'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">cut2=optimal_binning_boundary(x=df_train[<span class="string">'RevolvingUtilizationOfUnsecuredLines'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">cut3 = optimal_binning_boundary(x=df_train[<span class="string">'MonthlyIncome'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">cut4 = optimal_binning_boundary(x=df_train[<span class="string">'NumberOfOpenCreditLinesAndLoans'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">feature_woe_iv</span><span class="params">(x: pd.Series, y: pd.Series, nan: float = <span class="number">-999.</span>)</span> -&gt; pd.DataFrame:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">        计算变量各个分箱的WOE、IV值，返回一个DataFrame</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    boundary = optimal_binning_boundary(x, y, nan)        <span class="comment"># 获得最优分箱边界值列表</span></span><br><span class="line">    df = pd.concat([x, y], axis=<span class="number">1</span>)                        <span class="comment"># 合并x、y为一个DataFrame，方便后续计算</span></span><br><span class="line">    df.columns = [<span class="string">'x'</span>, <span class="string">'y'</span>]                               <span class="comment"># 特征变量、目标变量字段的重命名</span></span><br><span class="line">    df[<span class="string">'bins'</span>] = pd.cut(x=x, bins=boundary, right=<span class="literal">False</span>)  <span class="comment"># 获得每个x值所在的分箱区间</span></span><br><span class="line">    </span><br><span class="line">    grouped = df.groupby(<span class="string">'bins'</span>)[<span class="string">'y'</span>]                     <span class="comment"># 统计各分箱区间的好、坏、总客户数量</span></span><br><span class="line">    result_df = grouped.agg([(<span class="string">'good'</span>,  <span class="keyword">lambda</span> y: (y == <span class="number">1</span>).sum()), </span><br><span class="line">                             (<span class="string">'bad'</span>,   <span class="keyword">lambda</span> y: (y == <span class="number">0</span>).sum()),</span><br><span class="line">                             (<span class="string">'total'</span>, <span class="string">'count'</span>)])</span><br><span class="line"></span><br><span class="line">    result_df[<span class="string">'good_pct'</span>] = result_df[<span class="string">'good'</span>] / result_df[<span class="string">'good'</span>].sum()       <span class="comment"># 好客户占比</span></span><br><span class="line">    result_df[<span class="string">'bad_pct'</span>] = result_df[<span class="string">'bad'</span>] / result_df[<span class="string">'bad'</span>].sum()          <span class="comment"># 坏客户占比</span></span><br><span class="line">    result_df[<span class="string">'total_pct'</span>] = result_df[<span class="string">'total'</span>] / result_df[<span class="string">'total'</span>].sum()    <span class="comment"># 总客户占比</span></span><br><span class="line"></span><br><span class="line">    result_df[<span class="string">'bad_rate'</span>] = result_df[<span class="string">'bad'</span>] / result_df[<span class="string">'total'</span>]             <span class="comment"># 坏比率</span></span><br><span class="line">    </span><br><span class="line">    result_df[<span class="string">'woe'</span>] = np.log(result_df[<span class="string">'good_pct'</span>] / result_df[<span class="string">'bad_pct'</span>])              <span class="comment"># WOE</span></span><br><span class="line">    result_df[<span class="string">'iv'</span>] = (result_df[<span class="string">'good_pct'</span>] - result_df[<span class="string">'bad_pct'</span>]) * result_df[<span class="string">'woe'</span>]  <span class="comment"># IV</span></span><br><span class="line">    </span><br><span class="line">    print(<span class="string">f"该变量IV = <span class="subst">&#123;result_df[<span class="string">'iv'</span>].sum()&#125;</span>"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result_df</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bin_age = feature_woe_iv(x=df_train[<span class="string">'age'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">bin_lines = feature_woe_iv(x=df_train[<span class="string">'RevolvingUtilizationOfUnsecuredLines'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">bin_debtratio = feature_woe_iv(x=df_train[<span class="string">'DebtRatio'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br><span class="line">bin_income = feature_woe_iv(x=df_train[<span class="string">'MonthlyIncome'</span>],y=df_train[<span class="string">'SeriousDlqin2yrs'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>对于连续型变量的分组结果如下图</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1593499498/%E6%88%AA%E5%B1%8F2020-06-30_%E4%B8%8A%E5%8D%887.43.31_lfidsu.png" alt=""></p>
+<center>the bin of age</center>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/line_k9boso.png" alt=""></p>
+<center>the bin of Revolving Utilization Of Unsecured</center>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/debt_rkjflw.png" alt=""></p>
+<center>the bin of debt ratio</center>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/income_jpaahu.png" alt=""></p>
+<center>the bin of monthlyincome</center>
+
+<p>最好的分箱结果一般满足几个要求：变量分箱后的woe值是单调的，单个变量最多分8箱，各变量分组的好坏对比值至少差距15个以上，各变量分组须涵盖2%以上的模型开发样本，各变量分组至少有30个发生目标事件的开发样本或开发样本至少占该组样本的1%。</p>
+<p>我们详细的看一下年龄的分组情况，woe的计算公式是log（好客户比例/坏客户比例），也就是说好客户越多，woe的值越大。从age里的woe值可以看出，woe是呈单调递减的并且在年龄越大的客户分组中，好客户的占比越多。这与我们的常识基本认知是一致的，越年轻的群体，其违约成本越低。因此这个分组是合理的，无需调整。</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742959/3059_gthtwg.png" alt=""></p>
+<center>the bin of Number Of Time 30-59 Days Past Due Not Worse</center>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/open_mcav5w.png" alt=""></p>
+<center>the bin of Number Of Open Credit Lines And Loans<center>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/90_gsxtp5.png" alt=""></p>
+<center>the bin of Number Of Times 90 Days Late<center>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/real_io6agi.png" alt=""></p>
+<center>the bin of Number Real Estate Loans Or Lines<center>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/6089_oh5iki.png" alt=""></p>
+<center>the bin of Number Of Time 60-89 Days Past Due Not Worse<center>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742959/depent_pqsywj.png" alt=""></p>
+<center>the bin of Number Of Dependents<center>
+
+<h2 id="2-2-变量相关性"><a href="#2-2-变量相关性" class="headerlink" title="2.2 变量相关性"></a>2.2 变量相关性</h2><p>在选择特征之前，我们先通过绘制皮尔逊相关系数矩阵确定变量之间是否存在共线性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#correlation map</span></span><br><span class="line">corr = df_train.corr()<span class="comment">#计算各变量的相关性系数</span></span><br><span class="line">xticks = [<span class="string">'y'</span>,<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'x4'</span>,<span class="string">'x5'</span>,<span class="string">'x6'</span>,<span class="string">'x7'</span>,<span class="string">'x8'</span>,<span class="string">'x9'</span>,<span class="string">'x10'</span>]<span class="comment">#x轴标签</span></span><br><span class="line">yticks = list(corr.index)<span class="comment">#y轴标签</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">sns.heatmap(corr, annot=<span class="literal">True</span>, cmap=<span class="string">'rainbow'</span>, ax=ax1, annot_kws=&#123;<span class="string">'size'</span>: <span class="number">9</span>, <span class="string">'weight'</span>: <span class="string">'bold'</span>, <span class="string">'color'</span>: <span class="string">'blue'</span>&#125;)<span class="comment">#绘制相关性系数热力图</span></span><br><span class="line">ax1.set_xticklabels(xticks, rotation=<span class="number">0</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">ax1.set_yticklabels(yticks, rotation=<span class="number">0</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742960/heat_q7ln7o.png" alt=""></p>
+<center>皮尔逊相关系数图<center>
+
+
+
+<p>根据以上图片所示，NumberOfOpenCreditLinesAndLoans和NumberRealEstateLoansOrLines的皮尔逊积矩相关系数为0.43，是中等强度的相关。除此之外，其余变量之间都是弱相关或不相关。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">！<span class="comment">#每个变量的iv值</span></span><br><span class="line">IV1 = bin_lines[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV2 = bin_age[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV3 = bin_3059[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV4 = bin_debtratio[<span class="string">'iv'</span>].sum()   </span><br><span class="line">IV5 = bin_income[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV6 = bin_open[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV7 = bin_90[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV8 = bin_relestate[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV9 = bin_6089[<span class="string">'iv'</span>].sum()</span><br><span class="line">IV10 = bin_dep[<span class="string">'iv'</span>].sum()</span><br><span class="line"></span><br><span class="line"><span class="comment">#为每个变量的iv值画柱状图</span></span><br><span class="line">ivlist = [IV1,IV2,IV3,IV4,IV5,IV6,IV7,IV8,IV9,IV10]</span><br><span class="line">index=[<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'x4'</span>,<span class="string">'x5'</span>,<span class="string">'x6'</span>,<span class="string">'x7'</span>,<span class="string">'x8'</span>,<span class="string">'x9'</span>,<span class="string">'x10'</span>]</span><br><span class="line">fig1 = plt.figure(<span class="number">1</span>)</span><br><span class="line">ax1 = fig1.add_subplot(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">x = np.arange(len(index))+<span class="number">1</span></span><br><span class="line">ax1.bar(x, ivlist, width=<span class="number">0.4</span>)<span class="comment">#生成柱状图</span></span><br><span class="line">ax1.set_xticks(x)</span><br><span class="line">ax1.set_xticklabels(index, rotation=<span class="number">0</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">'IV(Information Value)'</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment">#在柱状图上添加数字标签</span></span><br><span class="line"><span class="keyword">for</span> a, b <span class="keyword">in</span> zip(x, ivlist):</span><br><span class="line">    plt.text(a, b + <span class="number">0.01</span>, <span class="string">'%.4f'</span> % b, ha=<span class="string">'center'</span>, va=<span class="string">'bottom'</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">plt.show()</span><br><span class="line">print(ivlist)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742961/hist_zrvdkb.png" alt=""></p>
+<center>iv柱状图<center>
+
+<p>我们普遍认为iv小于0.02为无预测能力，0.3到0.5为强预测能力。根据经验，我们保留iv值大于0.1的变量，最终选择的变量是age（x2，0.2521），RevolvingUtilizationOfUnsecuredLines（x1，1.1074），NumberOfTime30-59DaysPastDueNotWorse（x3，0.7008），NumberOfTimes90DaysLate（x7，0.8458），NumberOfTime60-89DaysPastDueNotWorse（x9，0.5534).</p>
+<h1 id="3-逻辑回归"><a href="#3-逻辑回归" class="headerlink" title="3 逻辑回归"></a>3 逻辑回归</h1><h2 id="3-1建立模型"><a href="#3-1建立模型" class="headerlink" title="3.1建立模型"></a>3.1建立模型</h2><p>在这部分我将利用上文所提及的五个变量进行逻辑回归来对客户进行分类，以此来建模预测信用好的客户和坏的客户。为了能更精准的预测，我将数据集分成了百分之90的训练集和百分之10的验证集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#split the train set into trainning set and developement set with 9:1</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">Y = df_train[<span class="string">'SeriousDlqin2yrs'</span>]</span><br><span class="line">X = df_train.iloc[:,<span class="number">1</span>:]</span><br><span class="line">X_train, Y_train, X_dev, Y_dev = train_test_split(X, Y, test_size=<span class="number">0.1</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">train_set = pd.concat([X_train,Y_train],axis=<span class="number">1</span>)</span><br><span class="line">dev_set = pd.concat([X_dev,Y_dev],axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在建模之前，我们要对数据进行特征缩放，使其变量之间的量纲相同。一般的，有线性函数归一化（normalization）和标准化（standardization）两种常见的方法。在本文中，由于最后将开发评分卡，所以这里可以将每个变量分组后的woe值进行数据的替换，woe是一个对数值，范围在0-1之间。最终部分数据由下图所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#transfer to woe and concat as a new dataframe</span></span><br><span class="line">a = trans woe(df train , ’RevolvingUtilizationOfUnsecuredLines ’ ,lines woe ,cut2) df train set = pd.concat([df train[’SeriousDlqin2yrs’],a[’woe’]],axis=<span class="number">1</span>)</span><br><span class="line">df train set.rename(columns=&#123;df train set.columns[<span class="number">1</span>]:’woe lines’&#125;,inplace=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line">b = trans woe(df train ,’age’,age woe,cut1)</span><br><span class="line">df train set = pd.concat([df train set ,b[’woe’]],axis=<span class="number">1</span>)</span><br><span class="line">df train set.rename(columns=&#123;df train set.columns[<span class="number">2</span>]:’woe age’&#125;,inplace=<span class="literal">True</span>)</span><br><span class="line">c = trans woe(df train ,’NumberOfTime30−<span class="number">59</span>DaysPastDueNotWorse’,woe <span class="number">3059</span>,cut3) df train set = pd.concat([df train set ,c[’woe’]],axis=<span class="number">1</span>)</span><br><span class="line">df train set.rename(columns=&#123;df train set.columns[<span class="number">3</span>]: ’woe <span class="number">3059</span>’&#125;,inplace=<span class="literal">True</span>)</span><br><span class="line">d = trans woe(df train ,’NumberOfTimes90DaysLate’,woe <span class="number">90</span>,cut4)</span><br><span class="line">df train set = pd.concat([df train set ,d[’woe’]],axis=<span class="number">1</span>)</span><br><span class="line">df train set.rename(columns=&#123;df train set.columns[<span class="number">4</span>]: ’woe <span class="number">90</span>’&#125;,inplace=<span class="literal">True</span>)</span><br><span class="line">e = trans woe(df train ,’NumberOfTime60−<span class="number">89</span>DaysPastDueNotWorse’,woe <span class="number">6089</span>,cut5) df train set = pd.concat([df train set ,e[’woe’]],axis=<span class="number">1</span>)</span><br><span class="line">df train set.rename(columns=&#123;df train set.columns[<span class="number">5</span>]: ’woe <span class="number">6089</span>’&#125;,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742963/train_set_oe8ukz.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#using logistic regression for modeling the data</span></span><br><span class="line"><span class="keyword">from</span> sklearn . linear model <span class="keyword">import</span> LogisticRegression </span><br><span class="line"><span class="keyword">from</span> sklearn . metrics <span class="keyword">import</span> classification report </span><br><span class="line">log reg = LogisticRegression ()</span><br><span class="line">log_reg.fit(X_train,Y_train)</span><br><span class="line">pred_test=log_reg.predict(X_dev)</span><br><span class="line">print(classification_report(Y_Dev,pred_test))</span><br><span class="line">coefs = log_reg.coef</span><br><span class="line">print(coefs)</span><br><span class="line">intercept = log_reg.intercept</span><br><span class="line"><span class="keyword">print</span> ( intercept )</span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Coe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RevolvingUtilizationOfUnse- curedLines</td>
+<td>0.76552878</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>0.48883134</td>
+</tr>
+<tr>
+<td>NumberOfTime30- 59DaysPastDueNotWorse</td>
+<td>0.71192475</td>
+</tr>
+<tr>
+<td>NumberOfTimes90DaysLate</td>
+<td>0.659146</td>
+</tr>
+<tr>
+<td>NumberOfTime60- 89DaysPastDueNotWorse</td>
+<td>0.52548183</td>
+</tr>
+</tbody></table>
+<p>最后回归的结果如上图的回归系数所示。由于我们的数据使用的是woe而不是原始数据，woe值越大，好客户占比越多；woe值越小，坏客户占比越多。因此我们可以初步得出结论，例如，年龄woe与好客户成正相关，既年龄越大，客户违约的可能性就越小；年龄越小，客户违约的可能性就越大。</p>
+<h2 id="3-2模型评估"><a href="#3-2模型评估" class="headerlink" title="3.2模型评估"></a>3.2模型评估</h2><p>模型训练完后，需要对所划分的测试集的预测结果来评估模型的性能。针对预测结果而言（测试集），precision（精确率）表示预测为正的样本中有多少是真的正样本，预测为正有两种情况，一种是把正类预测为正（TP),另一种是把负类预测为正（FP）：P=TP/TP+FP</p>
+<p>recall（查全率）表示样本中有多少正例被预测正确率。也是两种可能，一种是把原来正类预测称正类（TP），一种是把原来正类预测为负类（FN）。R=TP/TP+FN</p>
+<p>F1-score则为精确率和查全率低调和平均数。</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742962/validation_b0vvj2.png" alt=""></p>
+<p>ROC曲线被广泛运用于二分类问题来评估分类器的可信度。在ROC曲线中，横坐标为false poitive rate（假阳性率），纵坐标为真阳性率（True positive rate）</p>
+<p>TPR = TP/(TP+FN) 也就是查全率</p>
+<p>FPR=FP/(TN+FP)</p>
+<p>AUC则指的是ROC曲线下的面积大小，该值能够量化的反映ROC曲线衡量的模型性能。AUC越大说明分类器能把真正的正样本排在前面，分类性能越好。可以看出本文的模型AUC为0.84，效果还可以。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn . metrics <span class="keyword">as</span> metrics</span><br><span class="line"><span class="comment"># calculate the fpr and tpr for all thresholds of the classification</span></span><br><span class="line">probs = log reg . predict proba (X dev)</span><br><span class="line">preds = probs [: ,<span class="number">1</span>]</span><br><span class="line">fpr, tpr, threshold = metrics.roc curve(Y dev, preds) roc auc = metrics.auc(fpr , tpr)</span><br><span class="line"><span class="comment">#drawing the POC and calculate the AUC</span></span><br><span class="line">log reg.fit(X train,Y train)</span><br><span class="line">pred test= log reg . predict (X dev) print(classification report(Y dev, pred test)) coefs = log reg . coef</span><br><span class="line"><span class="keyword">print</span> ( coefs )</span><br><span class="line">intercept = log reg . intercept</span><br><span class="line"><span class="keyword">import</span> matplotlib . pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt . title ( ’Receiver Operating Characteristic ’) plt.plot(fpr, tpr, ’b’, label = ’AUC= %<span class="number">0.2</span>f’ % roc auc) plt.legend(loc = ’lower right’)</span><br><span class="line">plt.plot([<span class="number">0</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">1</span>],’r−−’)</span><br><span class="line">plt . xlim ([<span class="number">0</span> , <span class="number">1</span>])</span><br><span class="line">plt . ylim ([<span class="number">0</span> , <span class="number">1</span>])</span><br><span class="line">plt.ylabel(’<span class="literal">True</span> Positive Rate’) plt.xlabel(’<span class="literal">False</span> Positive Rate’) plt .show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1592742958/auc_hfofxn.png" alt=""></p>
+<h1 id="4-建立评分卡"><a href="#4-建立评分卡" class="headerlink" title="4 建立评分卡"></a>4 建立评分卡</h1><p>在建立评分卡之前，我们需要选取几个评分卡参数：基础分值，PDO（比率翻倍的分值）和好坏比。这里，我们选取600分为基础分值，PDO为20（每高20分好坏比翻一倍).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#building credit score system</span></span><br><span class="line">p = <span class="number">20</span>/np.log(<span class="number">2</span>)</span><br><span class="line">q = <span class="number">600</span>−<span class="number">20</span>∗np.log(<span class="number">20</span>)/np.log(<span class="number">2</span>)</span><br><span class="line">x coe = [<span class="number">2.14021881</span>,<span class="number">0.76552878</span>,<span class="number">0.48883134</span>,<span class="number">0.71192475</span>,<span class="number">0.659146</span>,<span class="number">0.52548183</span>]</span><br><span class="line">basescore = round(q+p∗x coe [<span class="number">0</span>] ,<span class="number">0</span>)</span><br><span class="line"><span class="keyword">print</span> ( basescore )</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span> <span class="title">score</span><span class="params">(coe,woe,factor)</span>:</span></span><br><span class="line">scores = [] <span class="keyword">for</span> w <span class="keyword">in</span> woe:</span><br><span class="line"><span class="number">7</span></span><br><span class="line">score=round(coe∗w∗factor ,<span class="number">0</span>)</span><br><span class="line">s c o r e s . append ( s c o r e ) <span class="keyword">return</span> scores</span><br><span class="line">x1 score = get score(x coe[<span class="number">1</span>],lines woe,p)</span><br><span class="line">print(x1 score)</span><br><span class="line">x2 score = get score(x coe[<span class="number">2</span>],age woe,p) print(x2 score)</span><br><span class="line">x3 score = get score(x coe[<span class="number">3</span>],woe <span class="number">3059</span>,p) print(x3 score)</span><br><span class="line">x4 score = get score(x coe[<span class="number">4</span>],woe <span class="number">90</span>,p)</span><br><span class="line">print(x4 score)</span><br><span class="line">x5 score = get score(x coe[<span class="number">5</span>],woe <span class="number">6089</span>,p) print(x5 score)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最终每个变量的评分卡如下：</p>
+<table>
+<thead>
+<tr>
+<th>RevolvingUtilizationOfUnsecuredLines</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[0,0.138)</td>
+<td>29</td>
+</tr>
+<tr>
+<td>[0.138,0.301)</td>
+<td>15</td>
+</tr>
+<tr>
+<td>[0.301,0.495)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>[0.495,0.703)</td>
+<td>-9</td>
+</tr>
+<tr>
+<td>[0.703,0.861)</td>
+<td>-19</td>
+</tr>
+<tr>
+<td>[0.861.8.952)</td>
+<td>-30</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Age</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[21,35.5)</td>
+<td>-8</td>
+</tr>
+<tr>
+<td>[35.5,42.5)</td>
+<td>-5</td>
+</tr>
+<tr>
+<td>[42.5,53.5)</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>[53.5,56.5)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>[56.5,64.5)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>[63.5,109.1)</td>
+<td>14</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>NumberOfTime30-59DaysPastDueNotWorse</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[0,1)</td>
+<td>11</td>
+</tr>
+<tr>
+<td>[1,3)</td>
+<td>-23</td>
+</tr>
+<tr>
+<td>[3,5)</td>
+<td>-44</td>
+</tr>
+<tr>
+<td>[5,13)</td>
+<td>-52</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>NumberOfTimes90DaysLate</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[0,1)</td>
+<td>7</td>
+</tr>
+<tr>
+<td>[1,3)</td>
+<td>-41</td>
+</tr>
+<tr>
+<td>[3,5)</td>
+<td>-58</td>
+</tr>
+<tr>
+<td>[5,17)</td>
+<td>-62</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>NumberOfTime60-89DaysPastDueNotWorse</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[0,1)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>[1,3)</td>
+<td>-30</td>
+</tr>
+<tr>
+<td>[3,11)</td>
+<td>-45</td>
+</tr>
+</tbody></table>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yeyifann.github.io">Ethan ye</a>
+            <p>原文链接：<a href="https://yeyifann.github.io/2020/07/07/credict%20scoring/">https://yeyifann.github.io/2020/07/07/credict%20scoring/</a>
+            <p>发表日期：<a href="https://yeyifann.github.io/2020/07/07/credict%20scoring/">July 7th 2020, 3:09:49 pm</a>
+            <p>更新日期：<a href="https://yeyifann.github.io/2020/07/07/credict%20scoring/">July 7th 2020, 3:09:49 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/07/08/A:B%20test/" title= "A:B test">
+                    <div class="nextTitle">A:B test</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yeyifann@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/yeyifann" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Data-exploration"><span class="toc-number">1.</span> <span class="toc-text">1 Data exploration</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Data-overview"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Data overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Data-cleaning"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Data cleaning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-特征工程"><span class="toc-number">2.</span> <span class="toc-text">2. 特征工程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1特征分箱"><span class="toc-number">2.1.</span> <span class="toc-text">2.1特征分箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-变量相关性"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 变量相关性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-逻辑回归"><span class="toc-number">3.</span> <span class="toc-text">3 逻辑回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1建立模型"><span class="toc-number">3.1.</span> <span class="toc-text">3.1建立模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2模型评估"><span class="toc-number">3.2.</span> <span class="toc-text">3.2模型评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-建立评分卡"><span class="toc-number">4.</span> <span class="toc-text">4 建立评分卡</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/2020/07/07/credict%20scoring/" >credict scoring</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2020/07/08/A:B%20test/" >A:B test</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ethan ye"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
