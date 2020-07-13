@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Ethan ye">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ethan ye">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Udacity付费课程的a&#x2F;b test1 实验背景Udacity是一个线上的学习平台，致力于提供大学式的教育环境，培养工作所需之技能。udacity的课程主页现在有两个选项：‘开始免费试用’和‘访问课程资料‘。点击’开始免费试用‘后，会提示用户输入信用卡的信息，随后让他们参加为期14天的免费试用课程，到期自动收费。点击’访问课程内容‘，能够查看到课程的内容，但不能获得辅导支持，项目反馈和证书。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="udacity A:B tests 2">
+<meta property="og:url" content="https://yeyifann.github.io/2020/07/13/udacity%20A:B%20tests%202/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Udacity付费课程的a&#x2F;b test1 实验背景Udacity是一个线上的学习平台，致力于提供大学式的教育环境，培养工作所需之技能。udacity的课程主页现在有两个选项：‘开始免费试用’和‘访问课程资料‘。点击’开始免费试用‘后，会提示用户输入信用卡的信息，随后让他们参加为期14天的免费试用课程，到期自动收费。点击’访问课程内容‘，能够查看到课程的内容，但不能获得辅导支持，项目反馈和证书。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594477097/%E6%88%AA%E5%B1%8F2020-07-11_%E4%B8%8B%E5%8D%882.47.46_aolsnr.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633189/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.39.32_y1fnxh.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633272/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.41.02_hqoff2.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633568/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.45.54_wylojz.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594634761/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8811.05.49_lo3uey.png">
+<meta property="article:published_time" content="2020-07-13T11:13:21.534Z">
+<meta property="article:modified_time" content="2020-07-13T11:13:21.534Z">
+<meta property="article:author" content="Ethan ye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1594477097/%E6%88%AA%E5%B1%8F2020-07-11_%E4%B8%8B%E5%8D%882.47.46_aolsnr.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>udacity A:B tests 2 · Ethan&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/391540_icon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ethan&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">udacity A:B tests 2</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ethan's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/ML.jpeg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            udacity A:B tests 2
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4.2k</span>Reading time: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/07/13</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Udacity付费课程的a-b-test"><a href="#Udacity付费课程的a-b-test" class="headerlink" title="Udacity付费课程的a/b test"></a>Udacity付费课程的a/b test</h1><h2 id="1-实验背景"><a href="#1-实验背景" class="headerlink" title="1 实验背景"></a>1 实验背景</h2><p>Udacity是一个线上的学习平台，致力于提供大学式的教育环境，培养工作所需之技能。udacity的课程主页现在有两个选项：‘开始免费试用’和‘访问课程资料‘。点击’开始免费试用‘后，会提示用户输入信用卡的信息，随后让他们参加为期14天的免费试用课程，到期自动收费。点击’访问课程内容‘，能够查看到课程的内容，但不能获得辅导支持，项目反馈和证书。</p>
+<p>这次实验为了测试一项变化，当学生点击‘开始免费试用’，系统会问他们能有多少时间投入到这个课程里。如果学生表示每周可以投入5个小时或者更多，将进行常规的输入信用卡信息组册课程。如果他们表示一周只能投入不到5个小时，将弹出一个对话框说明课程通常需要更多的时间投入才能完成，并建议学生可以先访问免费的课程资料。在这里学生也可以选择继续选择免费试学。</p>
+<p>我们假设这个变化会为学生有一个预期的明确期望，从而减少因为没有足够时间而离开免费试学，并因此受挫的数量，同时也不会在很大程度上减少继续通过免费试学和最终完成课程的学生数量。</p>
+<h2 id="2-指标的选择"><a href="#2-指标的选择" class="headerlink" title="2 指标的选择"></a>2 指标的选择</h2><p>我们需要两类指标来完成这次实验。一类是不变量指标（invariante metrics），原则上是在实验组和对照组中都不应该更改的指标。用于检查变化前后两组用户数和分布情况是否相同，确保新上线的策略不会有原则性的错误。对于每一个指标都需要声明一个dmin，表示一个最小的变化值，任何低于此变化值的即使值统计上是显著的，但对于商业应用上是不实际的。</p>
+<p>不变量指标通常有：cookie的数量（访问课程页面的唯一cookie数量，d=3000），点击次数（点击‘开始免费试学’按钮的唯一cookie数量，d=240），点进概率（点击‘开始免费试学’按钮的唯一cookie的数量除以查看课程概述页的唯一ciikie的数量，d=0.01）</p>
+<p>另一类为评估指标，是希望有变化的指标，与商业目标有关。我们的目标是为了降低学生的挫败感，提高满意度，有效利用辅导资源。因此可以用以下指标：总转换率（cross conversation 完成登陆并参加免费试学的用户ID数量除以点击‘开始免费试学’按钮的唯一cookie数量 ，d=0.01），留存率（retension 在14天免费期限过期后任然参加课程的用户ID除以完成登录的用户ID的数量 ，d=0.01），净转换率（net conversation 在14天的期限后任然参与课程的用户id的数量除以点击率‘开始免费试学’按钮的唯一cookie的数量， d=0.0075）</p>
+<p>p.s：用户ID数不是一个合适的不变指标，虽然可以用作评估指标，但不理想，因为一个人可以组册多个账户。</p>
+<h3 id="3-估计样本标准差"><a href="#3-估计样本标准差" class="headerlink" title="3 估计样本标准差"></a>3 估计样本标准差</h3><h3 id="3-1基线数据"><a href="#3-1基线数据" class="headerlink" title="3.1基线数据"></a>3.1基线数据</h3><p>在开始试验之前，需要知道这些指标的一个平常的表现如何，这些数据应该从日常数据中得到。</p>
+<table>
+<thead>
+<tr>
+<th>Unique cookies to view page per day</th>
+<th>40000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unique cookies to click “Start free trial” per day</td>
+<td>3200</td>
+</tr>
+<tr>
+<td>Free Trial enrollments per day</td>
+<td>660</td>
+</tr>
+<tr>
+<td>Probability of enrolling, given click</td>
+<td>0.20626</td>
+</tr>
+<tr>
+<td>Probability of payment, given enroll</td>
+<td>0.53</td>
+</tr>
+<tr>
+<td>Probability of payment, given click</td>
+<td>0.1093125</td>
+</tr>
+<tr>
+<td>Click-through-probability on “Start free trial”:</td>
+<td>0.08</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-估计标准差"><a href="#3-2-估计标准差" class="headerlink" title="3.2 估计标准差"></a>3.2 估计标准差</h3><p>估计标准差是为了后续计算试验样本量和置信区间。假设有5000个cookie样本大小的访问课程概述页面的情况下，计算评估指标的方差。首先我们要对数据点击量（Unique cookies to click “Start free trial” per day）和登记数（Free Trial enrollments per day）进行缩放（scaling）。</p>
+<p>click‘ = clikcs * 5000/40000=3200 * 5000/40000=400</p>
+<p>enrollments’ = enrollments*5000/40000= 660 * 5000/400000 = 82.5</p>
+<p>假设转化率满足二项分布，例如gross conversion是Free Trial enrollments per day/number of clicks = 660/3200 = 0.20625，一次点击要么是登记课程要么是退出不登记，所以符合二项分布，对应二项分布中成功发生的概率p，n为basline clicks的次数400，根据二项分布标准差公式：</p>
+<p>$$ 
+SD=\sqrt{\frac{\hat{p}*(1-\hat{p})}{n}}
+$$ <br>SD of GC = 0.0202</p>
+<p>同理计算其他比率</p>
+<p>SD of retention(留存率）= 0.0549 （p = 0.53，n = 82.5）</p>
+<p>SD of net conversion = 0.0156 （p=0.109313，n = 5000）</p>
+<h3 id="3-3计算实验样本量"><a href="#3-3计算实验样本量" class="headerlink" title="3.3计算实验样本量"></a>3.3计算实验样本量</h3><p>接下来计算实验的样本数量。理论上来说，样本量应该越多越好，但是在工作中，样本量其实应该越少越好，因为很多公司规模不大，流量有限，需要保证产品开发的速度。同时，流量太大，试错成本也大，如果实验失败，会带来较大的损失。</p>
+<p>计算样本量之前，需要理解两个概念，statistical power和significance level。significance level 是第一类错误出现的概率，也就是当原假设为真时，拒绝了原假设。在商业背景下，意味着新的功能对业务其实没有提升，我们却误认为有提升。因此我们希望第一类错误越低越好。statistical power则是在零假设错误的情况下成功拒绝零假设接受备择假设的概率，假设power过低，即使新功能真的有效果，实验也不能检测出来，所以需要设置一个较高的power。</p>
+<p>为了计算出样本量，需要知道四个值：statistical power，signigicance level ，baseline rate 和 minimum detectable effect。计算公式如下：</p>
+<p>$$ 
+n = \frac{(Z_{1-\frac{\alpha}{2}}sd_1 + Z_{1-\beta}sd_2)^2}{d^2}
+$$ <br>一般我们使用网上计算器：<a href="https://www.evanmiller.org/ab-testing/sample-size.html" target="_blank" rel="noopener">https://www.evanmiller.org/ab-testing/sample-size.html</a> 输入四个参数即可算出。</p>
+<p><strong>cross conversion：</strong> baseline conversion = 20.626%</p>
+<p>​                                     minimum detectable effect = 1%</p>
+<p>​                                     alpha = 5%</p>
+<p>​                                     beta = 20%</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1594477097/%E6%88%AA%E5%B1%8F2020-07-11_%E4%B8%8B%E5%8D%882.47.46_aolsnr.png" alt=""></p>
+<p>最后算出每组至少需要25835个点了免费试听按钮的cookies样本，由于我们的点击概率为400/5000 = 0.08，最终需要25835/0.08 = 322938个样本每组才能满足要求，一共需要322938*2 = 645878个实验样本。</p>
+<p>同理可计算出余下两个指标所需的实验样本：</p>
+<p><strong>Retention</strong> ：           baseline conversion = 53%</p>
+<p>​                                   minimum detectable effect = 1%</p>
+<p>​                                   alpha = 5%</p>
+<p>​                                   beta = 20%</p>
+<p>​                                  sample size = 39155 enrollments/group</p>
+<p>​                                  The probability of enrollment ,given pageview = 660/40000 = 0.0165 enrollments/pageview</p>
+<p>​                                 sample size of pageviews = 39155*2/0.0165 = 4746060</p>
+<p><strong>Net conversion</strong>：baseline conversion = 10.9313%</p>
+<p>​                                 minimum detectable effect = 0.75% </p>
+<p>​                                 alpha = 5%</p>
+<p>​                                 beta = 20%</p>
+<p>​                                 sample size = 27413 enrollments/group</p>
+<p>​                                clicks/pageview: 3200/40000 = .08 clicks/pageview</p>
+<p>​                                pageviews = 27413*2/0.08 = 685,325</p>
+<h3 id="3-3-选择持续时间"><a href="#3-3-选择持续时间" class="headerlink" title="3.3 选择持续时间"></a>3.3 选择持续时间</h3><p>首先看retention的实验需要超过四百万的样本，然而我们一天的cookie数为40000，一共需要一百天才能获取到足够的样本，时间太长，所以给予剔除。</p>
+<p>cross convention 和 net convertion 的样本数都合理，取最大的685325作为最终实验样本数。如果我们每天拿百分之八十的cookies作样本，685325/40000*0.8 = 21.4天，大概需要3周的持续实验时间。</p>
+<h2 id="4-分析数据"><a href="#4-分析数据" class="headerlink" title="4 分析数据"></a>4 分析数据</h2><h3 id="4-1-数据探索"><a href="#4-1-数据探索" class="headerlink" title="4.1 数据探索"></a>4.1 数据探索</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math <span class="keyword">as</span> mt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">control = pd.read_excel(<span class="string">'Final+Project+Results.xlsx'</span>,sheet_name = <span class="string">'Control'</span>)</span><br><span class="line">experiment = pd.read_excel(<span class="string">'Final+Project+Results.xlsx'</span>,sheet_name = <span class="string">'Experiment'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          Date  Pageviews  Clicks  Enrollments  Payments</span><br><span class="line"><span class="number">0</span>  Sat, Oct <span class="number">11</span>       <span class="number">7723</span>     <span class="number">687</span>        <span class="number">134.0</span>      <span class="number">70.0</span></span><br><span class="line"><span class="number">1</span>  Sun, Oct <span class="number">12</span>       <span class="number">9102</span>     <span class="number">779</span>        <span class="number">147.0</span>      <span class="number">70.0</span></span><br><span class="line"><span class="number">2</span>  Mon, Oct <span class="number">13</span>      <span class="number">10511</span>     <span class="number">909</span>        <span class="number">167.0</span>      <span class="number">95.0</span></span><br><span class="line"><span class="number">3</span>  Tue, Oct <span class="number">14</span>       <span class="number">9871</span>     <span class="number">836</span>        <span class="number">156.0</span>     <span class="number">105.0</span></span><br><span class="line"><span class="number">4</span>  Wed, Oct <span class="number">15</span>      <span class="number">10014</span>     <span class="number">837</span>        <span class="number">163.0</span>      <span class="number">64.0</span></span><br><span class="line">          Date  Pageviews  Clicks  Enrollments  Payments</span><br><span class="line"><span class="number">0</span>  Sat, Oct <span class="number">11</span>       <span class="number">7716</span>     <span class="number">686</span>        <span class="number">105.0</span>      <span class="number">34.0</span></span><br><span class="line"><span class="number">1</span>  Sun, Oct <span class="number">12</span>       <span class="number">9288</span>     <span class="number">785</span>        <span class="number">116.0</span>      <span class="number">91.0</span></span><br><span class="line"><span class="number">2</span>  Mon, Oct <span class="number">13</span>      <span class="number">10480</span>     <span class="number">884</span>        <span class="number">145.0</span>      <span class="number">79.0</span></span><br><span class="line"><span class="number">3</span>  Tue, Oct <span class="number">14</span>       <span class="number">9867</span>     <span class="number">827</span>        <span class="number">138.0</span>      <span class="number">92.0</span></span><br><span class="line"><span class="number">4</span>  Wed, Oct <span class="number">15</span>       <span class="number">9793</span>     <span class="number">832</span>        <span class="number">140.0</span>      <span class="number">94.0</span></span><br></pre></td></tr></table></figure>
+
+<p>用python读取A/B实验数据，一共有两组数据，每组数据有5个变量，一共收集了37天。（数据从udacity课程项目中获取）</p>
+<h3 id="4-2-健全性检查"><a href="#4-2-健全性检查" class="headerlink" title="4.2 健全性检查"></a>4.2 健全性检查</h3><p>在开始进行实验之前，我们需要进行健全性检查，帮助我们确认实验能按照我们的想法成功运行，保证其他变量不会影响到我们收集到数据。</p>
+<p>首先我们要保证不变指标在两个组中是不变的。我们有Number of Cookies in Course Overview Page，Number of Clicks on Free Trial Button和Free Trial button Click-Through-Probability三个不变变量。</p>
+<p>我们来对pageview进行分析，首先看看两个组中pageview的总数。从结果来看，两个组的pageviews近似，但仍需要通过假设检验的方法验证这种差异是由随机性导致的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pageviews_cont=control[<span class="string">'Pageviews'</span>].sum()</span><br><span class="line">pageviews_exp=experiment[<span class="string">'Pageviews'</span>].sum()</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"number of pageviews in control:"</span>, pageviews_cont)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"number of Pageviewsin experiment:"</span> ,pageviews_exp)</span><br><span class="line"></span><br><span class="line">number of pageviews <span class="keyword">in</span> control: <span class="number">345543</span></span><br><span class="line">number of Pageviewsin experiment: <span class="number">344660</span></span><br></pre></td></tr></table></figure>
+
+<p>（1）计数差异的检验：</p>
+<p>我们希望分组的情况符合二次分布，每个组分到的概率因该是一半一半（50%）。步骤如下：</p>
+<p>1: 计算伯努利分布的标准差（概率为50%）<br>$$ 
+SD=\sqrt{\frac{p(1-p)}{N}}=\sqrt{\frac{0.5(1-0.5)}{345543+344660}}=0.0006018407402943247
+$$ <br>2:计算误差范围，margin of error = sd*z-score，置信度按95%取，z-score = 1.96 *0.0006=0.001176</p>
+<p>3：计算置信区间，[0.5-0.001176，0.5+0.001176] = [0.498824,0.501176]</p>
+<p>4: 样本值等于345543/345543+344660=0.5006，在置信区间内，在预期之内，通过检查。</p>
+<p>同理可算出点击量clicks的置信区间为[0.4959，0.5041],样本值为0.5005,也是通过了检验。</p>
+<p>（2）比例差异检验</p>
+<p>click through probability of the free trial button 点击概率是一个比例，需要用到两总体比例之差检验。公式如下：<br>$$ 
+\hat{p_{pool}}=\frac{x_{cont}+x_{exp}}{N_{cont}+N_{exp}}
+$$ </p>
+<p>$$ 
+SD_{pool}=\sqrt{\hat{p_{pool}}(1-\hat{p_{pool}}(\frac{1}{N_{cont}}+\frac{1}{N_{exp}})}
+$$ </p>
+<p>$$ 
+\hat{p_{pool}}=\frac{28378+28325}{345543+344660}=0.08215
+$$ </p>
+<p>$$ 
+SD_{pool}=\sqrt{{0.08215}(1-{0.08215}(\frac{1}{345543}+\frac{1}{34460}})=0.0006610
+$$ <br>同理margin error = 0.0006610*1.96=0.001296</p>
+<p>我们希望看到CTPexp-CTPcont = 0，所以置信区间为[0-0.001296,0+0.001296],样本值在区间内，通过检验。</p>
+<p>综上所述，所有不变指标都通过了健全性检验。</p>
+<h3 id="4-3-效应值检验"><a href="#4-3-效应值检验" class="headerlink" title="4.3 效应值检验"></a>4.3 效应值检验</h3><p>这一步看的就是通过看我们评估变量在控制组和实验组的变化中是否有显著的变化，是A/B test 的核心步骤。需要注意的是，数据集里由十一月三号之后的enrollments和payments都是空缺值，所以实际可用的数据只有23天，同样使用两比例检验。</p>
+<p><strong>Gross conversion</strong>:clicks_cont = sum(control.clicks)=17293</p>
+<p>​                                  Clicks_exp = sum(experiment.clicks)=17260</p>
+<p>​                                  enrollments_cont = sum(control.enrollment) = 3785</p>
+<p>​                                  enrollments_exp = sum(experiment.enrollment) = 3423</p>
+<p>​                                  GC_cont= enrollment_cont/clicks_cont=3785/17293=0.2189</p>
+<p>​                                  GC_exp=enrollment_exp/clicks_exp=3423/17260=0.1983</p>
+<p>​                                  GC_pooled =（enrollments_cont+enrollments_exp） / （clicks_cont+Clicks_exp)=0.2086<br>$$ 
+GCSD{pool}=\sqrt{{0.2086}(1-{0.2086}(\frac{1}{17293}+\frac{1}{17260}})=0.004372
+$$ <br>​                                  GC_ ME=1.96*0.004372=0.00857</p>
+<p>​                                  GC_diff=GC_exp-GC_cont= -2.06%                                                                         </p>
+<p>​                                  Confident interval =  [  -0.0206-0.00857 , -0.0206+0.00857]  =  [-0.0292,-0.012] </p>
+<p>0不在置信区间里，说明这个差异是在统计上显著的，然后我们再考虑是否在现实意义上的显著。我们与业务上的最小决策d_min = 0.01作比较，实验差异大于1%，所以这个差异也是有实际意义的。在推出新功能后，课程登记转化率（gross conversion）显著减少了2.06%，减少了课程登记用户数。 </p>
+<p> 同理计算<strong>net conversion</strong>，NC_diff=-0.49%，置信区间[ -0.0116 , 0.0018]。0在统计区间内，0.49%小于业务上的最小值0.75%，因此net conversion在统计上和实际上都不显著。</p>
+<h3 id="4-4双重检验-符号检验"><a href="#4-4双重检验-符号检验" class="headerlink" title="4.4双重检验-符号检验"></a>4.4双重检验-符号检验</h3><p>sign test 符号检验，可以从另一个角度对实验结果分析，检验观察结果每天对变化趋势是否显著。通过计算每天的指标值，统计有正向变化的天数（实验组大于控制组的）将实验组比较大的事件，作为伯努利试验中成功的事件。数据一共有23天，首先把实验组中GC和NC大于控制组大筛选出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#数据链接，加后缀</span></span><br><span class="line">full=control.join(other=experiment,how=<span class="string">"inner"</span>,lsuffix=<span class="string">"_cont"</span>,rsuffix=<span class="string">"_exp"</span>)</span><br><span class="line"><span class="comment">#只有23天的数据，剔除掉缺失值</span></span><br><span class="line">full=full.loc[full[<span class="string">"Enrollments_cont"</span>].notnull()]</span><br><span class="line">print(full.head())</span><br><span class="line"></span><br><span class="line">    Date_cont  Pageviews_cont  ...  Enrollments_exp  Payments_exp</span><br><span class="line"><span class="number">0</span>  Sat, Oct <span class="number">11</span>            <span class="number">7723</span>  ...            <span class="number">105.0</span>          <span class="number">34.0</span></span><br><span class="line"><span class="number">1</span>  Sun, Oct <span class="number">12</span>            <span class="number">9102</span>  ...            <span class="number">116.0</span>          <span class="number">91.0</span></span><br><span class="line"><span class="number">2</span>  Mon, Oct <span class="number">13</span>           <span class="number">10511</span>  ...            <span class="number">145.0</span>          <span class="number">79.0</span></span><br><span class="line"><span class="number">3</span>  Tue, Oct <span class="number">14</span>            <span class="number">9871</span>  ...            <span class="number">138.0</span>          <span class="number">92.0</span></span><br><span class="line"><span class="number">4</span>  Wed, Oct <span class="number">15</span>           <span class="number">10014</span>  ...            <span class="number">140.0</span>          <span class="number">94.0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x=full[<span class="string">'Enrollments_cont'</span>]/full[<span class="string">'Clicks_cont'</span>]</span><br><span class="line">y=full[<span class="string">'Enrollments_exp'</span>]/full[<span class="string">'Clicks_exp'</span>]</span><br><span class="line">full[<span class="string">'GC'</span>] = np.where(x&lt;y,<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment"># The same now for net conversion</span></span><br><span class="line">z=full[<span class="string">'Payments_cont'</span>]/full[<span class="string">'Clicks_cont'</span>]</span><br><span class="line">w=full[<span class="string">'Payments_exp'</span>]/full[<span class="string">'Clicks_exp'</span>]</span><br><span class="line">full[<span class="string">'NC'</span>] = np.where(z&lt;w,<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">print(full[[<span class="string">'Date_cont'</span>,<span class="string">'GC'</span>,<span class="string">'NC'</span>]])</span><br><span class="line"></span><br><span class="line">      Date_cont  GC  NC</span><br><span class="line"><span class="number">0</span>   Sat, Oct <span class="number">11</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">1</span>   Sun, Oct <span class="number">12</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">2</span>   Mon, Oct <span class="number">13</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">3</span>   Tue, Oct <span class="number">14</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">4</span>   Wed, Oct <span class="number">15</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">5</span>   Thu, Oct <span class="number">16</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">6</span>   Fri, Oct <span class="number">17</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">7</span>   Sat, Oct <span class="number">18</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">8</span>   Sun, Oct <span class="number">19</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">9</span>   Mon, Oct <span class="number">20</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">10</span>  Tue, Oct <span class="number">21</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">11</span>  Wed, Oct <span class="number">22</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">12</span>  Thu, Oct <span class="number">23</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">13</span>  Fri, Oct <span class="number">24</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">14</span>  Sat, Oct <span class="number">25</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">15</span>  Sun, Oct <span class="number">26</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">16</span>  Mon, Oct <span class="number">27</span>   <span class="number">0</span>   <span class="number">0</span></span><br><span class="line"><span class="number">17</span>  Tue, Oct <span class="number">28</span>   <span class="number">1</span>   <span class="number">1</span></span><br><span class="line"><span class="number">18</span>  Wed, Oct <span class="number">29</span>   <span class="number">1</span>   <span class="number">1</span></span><br><span class="line"><span class="number">19</span>  Thu, Oct <span class="number">30</span>   <span class="number">1</span>   <span class="number">0</span></span><br><span class="line"><span class="number">20</span>  Fri, Oct <span class="number">31</span>   <span class="number">1</span>   <span class="number">1</span></span><br><span class="line"><span class="number">21</span>   Sat, Nov <span class="number">1</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"><span class="number">22</span>   Sun, Nov <span class="number">2</span>   <span class="number">0</span>   <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#计算天数</span></span><br><span class="line">GC_x=full.GC[full[<span class="string">"GC"</span>]==<span class="number">1</span>].count()</span><br><span class="line">NC_x=full.NC[full[<span class="string">"NC"</span>]==<span class="number">1</span>].count()</span><br><span class="line">n=full.NC.count()</span><br><span class="line">print(<span class="string">"GC:"</span>,GC_x,<span class="string">'\n'</span>,</span><br><span class="line">      <span class="string">" NC:"</span>,NC_x,<span class="string">'\n'</span>,</span><br><span class="line">      <span class="string">"total days"</span>,n)</span><br><span class="line"></span><br><span class="line">GC: <span class="number">4</span> </span><br><span class="line">  NC: <span class="number">10</span> </span><br><span class="line"> total days <span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>由结果可得，在23天里，GC只有4天是实验组比较大的，NC则有10天。</p>
+<p>最后使用<a href="http://graphpad.com/quickcalcs/binomial1.cfm" target="_blank" rel="noopener">在线计算器</a>，填入相应的数值，观察结果的双尾检验p值0.0026，既为随机得到积极成果的概率。该数据小于设定的a=0.05，因此符合检验和假设检验一致，表面积极的结果不具备随机性。</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633189/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.39.32_y1fnxh.png" alt=""></p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633272/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.41.02_hqoff2.png" alt=""></p>
+<p>同理，可算出NC,双侧p值为0.6776，大于0.05，不具有显著性。对于同一检验效应值来说，假设检验具有统计显著性，而符号检验没有。其中的原因，符号检验的效能低于效应值检验，这种情况常见于非参数检验，我们应该深入分析</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1594633568/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8810.45.54_wylojz.png" alt=""></p>
+<img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1594634761/%E6%88%AA%E5%B1%8F2020-07-13_%E4%B8%8A%E5%8D%8811.05.49_lo3uey.png" style="zoom:33%;" />
+
+<p>通过进一步研究其中的数据，可以发现有积极改变（nc=1）的时间大概集中在周末前后，并且十月27号后的一周中有五天都有积极的变化，且实验数据远高于其他时间。因此这样的结果不能推荐推出新的功能，应研究其周末和月份对用户对影响并重新设计方案以此影响更多的客户。</p>
+<h2 id="5-结论和建议"><a href="#5-结论和建议" class="headerlink" title="5 结论和建议"></a>5 结论和建议</h2><p>对udacity关于是否要添加一个学习时间询问框进行了一项实验，其中将Udacity学生按照cookies分成两组，实验组和控制组。实验组被要求输入他们愿意投入学习的时间量，点击”启动免费试用按钮”，而对照组则不输入。选择三个不变指标（Cookie 数量、”开始免费试用”的点击次数和点击浏览概率），以验证和进行健全检查，而总转化次数（注册/Cookie）和净转化次数（付款/Cookie）则用作评估指标。零假设是，各组之间的评估指标没有差异，此外，每个指标都有业务上的最小值，既实际上的有意义。启动实验的要求是，对于 所有评估指标，必须拒绝零假设，并且之间的差值必须达到或超过业务上最小值dmin。由于我们的验收标准要求所有评估指标有差异，我们使用两总体比例差检验。</p>
+<p>分析表明，对于不变指标，在 95% 的置信水平上，的对照组和实验组中的 Cookie 均等分布。在 95% 的置信水平上，发现总转换GC的差异在统计上是有显著差异的，并且零假设被拒绝。总转换也符合业务意义上的显著。在 95% 的置信水平 中，净转换NC在统计学上或实际上都不显著。</p>
+<p>这项实验旨在确定过滤学生作为学习时间承诺的新功能是否会提高学生的整体体验和老师的能力，以支持可能完成课程的学生，而不会显著减少继续通过免费试用的学生人数。观察到总转化率在统计上和实际上都显著下降，但净转化率没有显著差异。这个变化的结果为入学人数的减少，而不是增加学生在免费14天后继续停留付款课程款。考虑到这一点，我的建议是不启动新功能，而是进行其他实验。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yeyifann.github.io">Ethan ye</a>
+            <p>原文链接：<a href="https://yeyifann.github.io/2020/07/13/udacity%20A:B%20tests%202/">https://yeyifann.github.io/2020/07/13/udacity%20A:B%20tests%202/</a>
+            <p>发表日期：<a href="https://yeyifann.github.io/2020/07/13/udacity%20A:B%20tests%202/">July 13th 2020, 12:13:21 pm</a>
+            <p>更新日期：<a href="https://yeyifann.github.io/2020/07/13/udacity%20A:B%20tests%202/">July 13th 2020, 12:13:21 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/07/08/A:B%20test/" title= "A:B test">
+                    <div class="prevTitle">A:B test</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yeyifann@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/yeyifann" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Udacity付费课程的a-b-test"><span class="toc-number">1.</span> <span class="toc-text">Udacity付费课程的a&#x2F;b test</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-实验背景"><span class="toc-number">1.1.</span> <span class="toc-text">1 实验背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-指标的选择"><span class="toc-number">1.2.</span> <span class="toc-text">2 指标的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-估计样本标准差"><span class="toc-number">1.2.1.</span> <span class="toc-text">3 估计样本标准差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1基线数据"><span class="toc-number">1.2.2.</span> <span class="toc-text">3.1基线数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-估计标准差"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.2 估计标准差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3计算实验样本量"><span class="toc-number">1.2.4.</span> <span class="toc-text">3.3计算实验样本量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-选择持续时间"><span class="toc-number">1.2.5.</span> <span class="toc-text">3.3 选择持续时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-分析数据"><span class="toc-number">1.3.</span> <span class="toc-text">4 分析数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-数据探索"><span class="toc-number">1.3.1.</span> <span class="toc-text">4.1 数据探索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-健全性检查"><span class="toc-number">1.3.2.</span> <span class="toc-text">4.2 健全性检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-效应值检验"><span class="toc-number">1.3.3.</span> <span class="toc-text">4.3 效应值检验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4双重检验-符号检验"><span class="toc-number">1.3.4.</span> <span class="toc-text">4.4双重检验-符号检验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-结论和建议"><span class="toc-number">1.4.</span> <span class="toc-text">5 结论和建议</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/13</span><a class="archive-post-title" href= "/2020/07/13/udacity%20A:B%20tests%202/" >udacity A:B tests 2</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2020/07/08/A:B%20test/" >A:B test</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/2020/07/07/credict%20scoring/" >credict scoring</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ethan ye"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
