@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Ethan ye">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ethan ye">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="1 背景介绍 2020年6月24号，腾讯游戏旗下天美工作室宣布与任天堂合作开发一款基于宝可梦的moba游戏，称为宝可梦大集结（Pokemon unite），即时将在switch，ios，android平台免费游玩。消息一出，不少宝可梦粉丝表示错愕，惊讶，愤怒和不解，当然也有少部分粉丝持保留态度表示愿意尝试。 推特是全球最大的社交网络平台，上面聚集了来自世界各地的宝可梦粉丝。本次研究将收集以#Pok">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pokemon unite的推特情感分析">
+<meta property="og:url" content="https://yeyifann.github.io/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 背景介绍 2020年6月24号，腾讯游戏旗下天美工作室宣布与任天堂合作开发一款基于宝可梦的moba游戏，称为宝可梦大集结（Pokemon unite），即时将在switch，ios，android平台免费游玩。消息一出，不少宝可梦粉丝表示错愕，惊讶，愤怒和不解，当然也有少部分粉丝持保留态度表示愿意尝试。 推特是全球最大的社交网络平台，上面聚集了来自世界各地的宝可梦粉丝。本次研究将收集以#Pok">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1595176186/6372893245919169764617763_vwtih7.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1595177602/%E6%88%AA%E5%B1%8F2020-07-19_%E4%B8%8B%E5%8D%885.52.53_h9rvdd.png">
+<meta property="og:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1595192156/Unknown_burypb.png">
+<meta property="article:published_time" content="2020-07-20T10:41:43.868Z">
+<meta property="article:modified_time" content="2020-07-20T10:41:43.868Z">
+<meta property="article:author" content="Ethan ye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.cloudinary.com/dfedg92kf/image/upload/v1595176186/6372893245919169764617763_vwtih7.jpg">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Pokemon unite的推特情感分析 · Ethan&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/391540_icon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ethan&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Pokemon unite的推特情感分析</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ethan's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/ML.jpeg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Pokemon unite的推特情感分析
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4.3k</span>Reading time: <span class="post-count reading-time">19 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/07/20</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="1-背景介绍"><a href="#1-背景介绍" class="headerlink" title="1 背景介绍"></a>1 背景介绍</h1><p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1595176186/6372893245919169764617763_vwtih7.jpg" alt=""></p>
+<p>2020年6月24号，腾讯游戏旗下天美工作室宣布与任天堂合作开发一款基于宝可梦的moba游戏，称为宝可梦大集结（Pokemon unite），即时将在switch，ios，android平台免费游玩。消息一出，不少宝可梦粉丝表示错愕，惊讶，愤怒和不解，当然也有少部分粉丝持保留态度表示愿意尝试。</p>
+<p>推特是全球最大的社交网络平台，上面聚集了来自世界各地的宝可梦粉丝。本次研究将收集以#Pokemonunite为关键字的推特，进行情感分析和主题词提取，看看世界上的玩家对这款游戏有什么看法。</p>
+<p>自宝可梦问世以来，这个系列的核心玩法从来都是收集，养成，交换，回合制对战。而从发布会来看‘宝可梦大集结’都没有体现出以上的特点。因此不少粉丝认为这就是一个换了皮的‘王者荣耀’。</p>
+<h1 id="2-爬取推特数据"><a href="#2-爬取推特数据" class="headerlink" title="2 爬取推特数据"></a>2 爬取推特数据</h1><p>推特数据爬取的工具使用的是github上的一个开源包：<a href="https://github.com/taspinar/twitterscraper" target="_blank" rel="noopener">https://github.com/taspinar/twitterscraper</a></p>
+<p>尝试爬取从2020年6月24日到2020年7月14日关键字为‘Pokemon unite’的3000条推特</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twitterscraper <span class="keyword">import</span> query_tweets</span><br><span class="line"><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取推特的开始和截止时间</span></span><br><span class="line">begin_date = dt.date(<span class="number">2020</span>,<span class="number">6</span>,<span class="number">24</span>)</span><br><span class="line">end_date = dt.date(<span class="number">2020</span>,<span class="number">7</span>,<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#爬取数量</span></span><br><span class="line">limit = <span class="number">3000</span></span><br><span class="line"><span class="comment">#语言</span></span><br><span class="line">lang = <span class="string">'english'</span></span><br><span class="line"></span><br><span class="line">tweets = query_tweets(<span class="string">'pokemon unite'</span>,begindate = begin_date,enddate = end_date,limit = limit,lang = lang)</span><br><span class="line"></span><br><span class="line"><span class="comment">#存入dataframe</span></span><br><span class="line">df = pd.DataFrame(t.__dict__ <span class="keyword">for</span> t <span class="keyword">in</span> tweets)</span><br><span class="line"></span><br><span class="line"><span class="comment">#存入excel方便查看</span></span><br><span class="line">df_pokemon = df[[<span class="string">'username'</span>,<span class="string">'timestamp'</span>,<span class="string">'text'</span>,<span class="string">'hashtags'</span>]]</span><br><span class="line">df_pokemon.to_excel(<span class="string">'pokemon.xls'</span>,sheet_name=<span class="string">'pokemon'</span>,header=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最终爬取了2729条相关的推特，如下图所示</p>
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1595177602/%E6%88%AA%E5%B1%8F2020-07-19_%E4%B8%8B%E5%8D%885.52.53_h9rvdd.png" alt=""></p>
+<h1 id="3-数据清理"><a href="#3-数据清理" class="headerlink" title="3 数据清理"></a>3 数据清理</h1><p>通过大概观察数据，发现这个包好像并不能很准确的识别语言。虽然设置了只爬取英语的推特，但还是掺杂了日语，中文，法语，西班牙语等。并且一些推特里面所包含的网址url是我们分析时不需要的将通过正则表达进行替换。清理过后剩下2262条推特。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#读文件</span></span><br><span class="line">pokemon_df = pd.read_excel(<span class="string">'pokemon1.xlsx'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">print(pokemon_df.head())</span><br><span class="line"></span><br><span class="line"><span class="comment">#清理重复行</span></span><br><span class="line">pokemon_df = pokemon_df.drop_duplicates()</span><br><span class="line"></span><br><span class="line"><span class="comment">#正则表达，去除非字母和url</span></span><br><span class="line">tok = WordPunctTokenizer()</span><br><span class="line">pat1 = <span class="string">r'@[A-Za-z0-9]+'</span></span><br><span class="line">pat2 = <span class="string">r'[a-zA-z]+://[^\s]*...'</span></span><br><span class="line">combined_pat = <span class="string">r'|'</span>.join((pat1, pat2))</span><br><span class="line"></span><br><span class="line"><span class="comment">#清理文本信息</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tweet_cleaner</span><span class="params">(text)</span>:</span></span><br><span class="line">    stripped = re.sub(combined_pat,<span class="string">''</span>,str(text))</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        clean = stripped.decode(<span class="string">"utf-8-sig"</span>).replace(<span class="string">u"\ufffd"</span>, <span class="string">"?"</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        clean = stripped</span><br><span class="line">    english_only = re.sub(<span class="string">"[\u4e00-\u9fa5]"</span>, <span class="string">" "</span>, clean)</span><br><span class="line">    letters_only = re.sub(<span class="string">"[^a-zA-Z]"</span>, <span class="string">" "</span>, english_only)</span><br><span class="line">    lower_case = letters_only.lower()</span><br><span class="line">    <span class="comment"># During the letters_only process two lines above, it has created unnecessay white spaces,</span></span><br><span class="line">    <span class="comment"># I will tokenize and join together to remove unneccessary white spaces</span></span><br><span class="line">    words = tok.tokenize(lower_case)</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">" "</span>.join(words)).strip()</span><br><span class="line"></span><br><span class="line"><span class="comment">#指定text行</span></span><br><span class="line">result = pokemon_df.text        </span><br><span class="line"><span class="comment">#将清理好的文本数据加入到test_result</span></span><br><span class="line">pokemon_result = []</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> result:</span><br><span class="line">    pokemon_result.append(tweet_cleaner(t))</span><br><span class="line"></span><br><span class="line"><span class="comment">#清理空缺值</span></span><br><span class="line">pokemon_result = [x <span class="keyword">for</span> x <span class="keyword">in</span> pokemon_result <span class="keyword">if</span> x != <span class="string">''</span>]</span><br><span class="line"><span class="comment">#再删一次重复值</span></span><br><span class="line">pokemon_result = sorted(set(pokemon_result),key=pokemon_result.index)</span><br><span class="line"></span><br><span class="line"><span class="comment">#语言检测，检测到不是英语的将剔除</span></span><br><span class="line"><span class="keyword">from</span> langdetect <span class="keyword">import</span> detect</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> pokemon_result:</span><br><span class="line">    <span class="keyword">if</span> detect(t) != <span class="string">'en'</span>:</span><br><span class="line">        pokemon_result.remove(t)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-情感分析"><a href="#4-情感分析" class="headerlink" title="4 情感分析"></a>4 情感分析</h1><h2 id="4-1词频向量化和停用词"><a href="#4-1词频向量化和停用词" class="headerlink" title="4.1词频向量化和停用词"></a>4.1词频向量化和停用词</h2><p>在文本预处理时，将文本转换为向量，将很大程度上简化了问题处理的难度，将文字问题转换为数学问题。大致的原理是将是把文章中的关键词转换为一个个特征（列），然后对每一篇文章数关键词出现个数转换为计数的稀疏矩阵。举个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#文本信息</span></span><br><span class="line">corpus = [<span class="string">'This is the first document.'</span>,</span><br><span class="line">	<span class="string">'This document is the second document.'</span>,</span><br><span class="line">	<span class="string">'And this is the third one.'</span>,</span><br><span class="line">	<span class="string">'Is this the first document?'</span>]</span><br><span class="line"><span class="comment">#获取特征词</span></span><br><span class="line">[<span class="string">'and'</span>, <span class="string">'document'</span>, <span class="string">'first'</span>, <span class="string">'is'</span>, <span class="string">'one'</span>, <span class="string">'second'</span>, <span class="string">'the'</span>, <span class="string">'third'</span>, <span class="string">'this'</span>]</span><br><span class="line"><span class="comment">#第一行，document，first，is，the，this分别出现一次</span></span><br><span class="line">[[<span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span>]        <span class="comment"># 4行 数据样本</span></span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span>]        <span class="comment"># 9列 特征单词</span></span><br><span class="line"> [<span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>停用词</strong>是指在信息检索中，为节省存储空间和提高搜索效率，在处理自然语言数据（或文本）之前或之后会自动过滤掉某些字或<strong>词</strong>，这些字或<strong>词</strong>即被称为Stop Words。中文里，比如像是‘这个’，‘如果’，‘可能’，‘就是’等就是停用词，其出现平率很高但没什么意义。</p>
+<p>英文的停用词就会有像是‘the’，‘this’，‘he’，‘have’等。除此之外，我还针对此次推特主题建立了几个停用词。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer,ENGLISH_STOP_WORDS</span><br><span class="line"><span class="comment">#自定义停用词</span></span><br><span class="line">my_stop_words = ENGLISH_STOP_WORDS.union([<span class="string">'pok'</span>,<span class="string">'mon'</span>,<span class="string">'unite'</span>,<span class="string">'twitter'</span>,<span class="string">'pokemon'</span>,<span class="string">'nintendo'</span>,<span class="string">'pokemonunite'</span>,<span class="string">'game'</span>,<span class="string">'moba'</span>])</span><br><span class="line">vect = CountVectorizer(stop_words=my_stop_words)</span><br><span class="line">vect.fit(pokemon_result)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-词云"><a href="#4-2-词云" class="headerlink" title="4.2 词云"></a>4.2 词云</h2><p>接下来我们用词云这样的可视化工具，直观的看一下这些评论。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将所有tokens转为一维</span></span><br><span class="line">pokemon_tweets = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> pokemon_result:</span><br><span class="line">    pokemon_tweets.append(i)</span><br><span class="line">pokemon_tweets = pd.Series(pokemon_tweets).str.cat(sep=<span class="string">' '</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#词云   </span></span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line">wordcloud = WordCloud(width = <span class="number">1600</span>,height =<span class="number">800</span>,max_font_size=<span class="number">200</span>,stopwords=my_stop_words).generate(pokemon_tweets)</span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">10</span>))</span><br><span class="line">plt.imshow(wordcloud,interpolation=<span class="string">'bilinear'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://res.cloudinary.com/dfedg92kf/image/upload/v1595192156/Unknown_burypb.png" alt=""></p>
+<p>如上图所示，貌似看不太出来有什么信息🙈 但有一个值得注意的是‘like’的大小（频率）比dislike大，我们需要进一步分析。</p>
+<h2 id="4-3-情感分析"><a href="#4-3-情感分析" class="headerlink" title="4.3 情感分析"></a>4.3 情感分析</h2><p>调用textblob的包可以直接得出情感的分数，我将其情感性分数（polarity）大于零的标记为1（positive）小于零的标记为-1（negative），等于0的则标记为零（neutral）。最后看一下每部分的占比，发现标记为1的正面评论要略多于标记为负1的负面评价，中立的评价最多。我们各打印几条评论观察一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> textblob <span class="keyword">import</span> TextBlob</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analize_sentiment</span><span class="params">(tweet)</span>:</span></span><br><span class="line">    analysis = TextBlob(tweet)</span><br><span class="line">    <span class="keyword">if</span> analysis.sentiment.polarity &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> analysis.sentiment.polarity == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将list转换为dataframe</span></span><br><span class="line">df_pokemon_sa = pd.DataFrame(pokemon_result,columns=[<span class="string">'values'</span>])</span><br><span class="line"><span class="comment">#调用情感分析函数，将情感分数存为SA</span></span><br><span class="line">df_pokemon_sa[<span class="string">'SA'</span>] = np.array([analize_sentiment(tweet) <span class="keyword">for</span> tweet <span class="keyword">in</span> df_pokemon_sa[<span class="string">'values'</span>]])</span><br><span class="line">print(df_pokemon_sa[<span class="string">'SA'</span>].value_counts()/len(df_pokemon_sa))</span><br><span class="line"></span><br><span class="line"> <span class="number">0</span>    <span class="number">0.431034</span></span><br><span class="line"> <span class="number">1</span>    <span class="number">0.349248</span></span><br><span class="line"><span class="number">-1</span>    <span class="number">0.219717</span></span><br><span class="line">Name: SA, dtype: float64</span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th>text</th>
+<th>sentiment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i honestly can t wait for pok mon unite i m glad that they re trying this out（我已经等不急想玩啦，很高兴看到他们尝试这种风格的宝可梦）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>alright i ll say it i m excited for pokemonunite i know what did he just say but like come on pokemon is expanding their reaches if this goes well it s another community it s more friends to make and that alone is worth giving it an honest shot（我很激动，宝可梦正在扩大他们的受众范围，将会有更多的朋友接触到宝可梦到游戏，然后可以有更多人一起玩，这是值得的尝试。）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>is pokemon unite out yet that s all i wanna play really（我只想玩宝可梦集合）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>pok mon unite combines the gameplay elements of a moba game and the well loved globally renouned video game franchise into one exciting multiplayer affair for android and ios mobile devices and the nintendo switch read more here（宝可梦集合结合了moba游戏的玩法和众多电子游戏的衍生玩法于一身，为了安卓ios和switch平台所打造）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>yeah whoever cares about pokemon names and collecting them right i m kinda hoping for pokemon unite tho（谁管那些宝可梦叫什么，谁还想要去收集他们，我有点想玩宝可梦集合了）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>i m not into mobas but i am definitely interested in trying to learn with pokemon unite i m pretty hype for it to come out（我虽然对moba游戏不感兴趣，但我绝对想要玩宝可梦集合）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>pok mon unite definitely looks like it ll be fun to stream（宝可梦集合的直播一定很有趣）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>in india we are banning all chinese apps it like a movement boycott china and i guess i would never be able to play pok mon unite（在印度我们已经封锁了所有中国app，我觉得我玩不到宝可梦集合了）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>really wishing i was playing pokemon unite free to play mobile pokemon themed battle game for ios and android devices made by tencent holdings ltd on my huawei phone right about now（我真心希望能在我心爱的华为手机玩着又腾讯开发的免费的宝可梦集合）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>pok mon unite would be better if we ignore who is developing the games（宝可梦集合是一款好游戏如何我们忽略掉背后的开发商）</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>从正面的评论我们可以看到世界上的一些小伙伴还是对这款游戏抱有很大的期待，对moba结合宝可梦的新型玩法表示很感兴趣。并且认为宝可梦集合这款游戏有很强的直播观赏性，或许会成为未来新的竞技比赛游戏。</p>
+<p>再来看几个负面的评价</p>
+<table>
+<thead>
+<tr>
+<th>text</th>
+<th>sentiment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>oh man that s depressing（噢天这令人失望）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>pokemon unite is just like a mobile heroes of the storm hmm based on the game trailer at least （从预告片看这宝可梦集合就像手机版风暴英雄 ps.风暴要火）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>like i swear pokemon unite wouldn t be as hated if it wasn t for tencent being involved（我发誓如果不是有腾讯参与这游戏还没那么讨厌）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>tbf pokemon unite was the worst case scenario i don t think anyone was ready for that（宝可梦集合真是最糟糕的情况，没有人准备好接受这个）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>wait if tiktok gets banned does that mean the pok mon company will end their tencent partnership and cancel pok mon unite（如果抖音被禁了是否意味着宝可梦公司要终止于腾讯的合作）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>fuck these two game release games we want like pokemon diamond and pearl remakes or botw or even a new spinoff pokemon cause you know pokemon unite is shit（我们不要这坨💩，我们要像宝可梦钻石于珍珠那样的正统作品）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>you don t understand anything i ve been playing pok mon for more than years and pok mon unite is the worst game they re going to release （我玩了几年宝可梦了，这绝对是最糟糕的游戏）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>oml same i was really sad when pokemon presents didn t announce anything like that at all although pokemon unite i can see myself playing with friends a remake for gen is literally what everyone been wanting so where is it （我感动非常伤心宝可梦没有发布我们想要的游戏，但我可以想象我能和朋友们一起玩宝可梦集合）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>pokemon unite is such a stupid idea people who like pok mon don t want to play a moba because it s not their thing and people who do play moba don t want a worse version of a game they already have in lol and that s ignoring the whole tencent chinese government shit（宝可梦集合真是一个愚蠢到家的想法，真正喜欢宝可梦的人是不会玩这种moba类型的宝可梦的。。。）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>i didn t care about the graphics until i saw that video to be fair i m not happy with why this game appears in the treehouse to begin with i still have nightmares about pok mon unite and this doesn t help either（我本来不太care游戏画面直到我看了发布会视频，我不太满意为什么这个游戏会出现在树屋发布会上，我开始做噩梦了）</td>
+<td>-1</td>
+</tr>
+</tbody></table>
+<p>负面的评论有的还是比较激烈的，各种f word。差评主要集中在对宝可梦结合moba玩法的不理解和讨厌，认为这有违了宝可梦的正统玩法。也有很多对腾讯公司不满的（腾讯在国内外风评都那么差的嘛😅），表示不玩一切腾讯开发的游戏。</p>
+<h1 id="5-LDA主题词提取"><a href="#5-LDA主题词提取" class="headerlink" title="5.LDA主题词提取"></a>5.LDA主题词提取</h1><p>为了进一步了解玩家对游戏的看法，我将使用LDA方法分别对正面和负面的评论进行主题词提取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将积极的推特向量化</span></span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer,ENGLISH_STOP_WORDS  </span><br><span class="line">cvec = CountVectorizer(max_features=<span class="number">1000</span>,ngram_range=(<span class="number">2</span>,<span class="number">2</span>),max_df=<span class="number">500</span>,stop_words=my_stop_words)</span><br><span class="line">cvec.fit(positive_pok[<span class="string">'values'</span>])</span><br><span class="line">print(cvec.get_feature_names())</span><br><span class="line">pokemon_bow = cvec.transform(positive_pok[<span class="string">'values'</span>])</span><br><span class="line">pokemonunite_df = pd.DataFrame(pokemon_bow.toarray(),columns = cvec.get_feature_names())</span><br><span class="line"></span><br><span class="line"><span class="comment">#导入lda的包</span></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> LatentDirichletAllocation</span><br><span class="line">n_topics = <span class="number">10</span><span class="comment">#设定主题数为十</span></span><br><span class="line">lda = LatentDirichletAllocation(n_components=n_topics, max_iter=<span class="number">50</span>,</span><br><span class="line">                                learning_method=<span class="string">'online'</span>,</span><br><span class="line">                                learning_offset=<span class="number">50.</span>,</span><br><span class="line">                                random_state=<span class="number">0</span>)</span><br><span class="line">lda.fit(pokemonunite_df)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_top_words</span><span class="params">(model, feature_names, n_top_words)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> topic_idx, topic <span class="keyword">in</span> enumerate(model.components_):</span><br><span class="line">        print(<span class="string">"Topic #%d:"</span> % topic_idx)</span><br><span class="line">        print(<span class="string">" "</span>.join([feature_names[i]</span><br><span class="line">                        <span class="keyword">for</span> i <span class="keyword">in</span> topic.argsort()[:-n_top_words - <span class="number">1</span>:<span class="number">-1</span>]]))</span><br><span class="line">    print()</span><br><span class="line"></span><br><span class="line">n_top_words = <span class="number">20</span><span class="comment">#每个主题输出前20个关键词</span></span><br><span class="line"></span><br><span class="line">tf_feature_names = cvec.get_feature_names()</span><br><span class="line">print_top_words(lda, tf_feature_names, n_top_words)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Topic <span class="comment">#0: 对这个新游戏表示激动</span></span><br><span class="line">ic com min min good thing actually excited min smash marvel avengers walkie talkies gonna fun competitive gaming open competitive gaming new new audience week discuss leaks min discuss batman advanced episode pokelol ia podboyz advanced smash erik erik shuts</span><br><span class="line">Topic <span class="comment">#1:能在安卓ios上玩到</span></span><br><span class="line">new episode android ios tencent company ebay store magicarp lord let magicarp make magicarp magicarp useful shouldn direct lot news going play free play really cool todos los gf tpci don play day going actually really battle royale dp remakes</span><br><span class="line">Topic <span class="comment">#2:可以和朋友一起玩</span></span><br><span class="line">free start big project play friends just like wanna play don want shame fool hype bakugan announced like crash bandicoot pm est fun play cafe mix free play im gonna play microtransactions quests spending complete quests years complain masters free</span><br><span class="line">Topic <span class="comment">#3: 游戏发布情况</span></span><br><span class="line">random company fans aren uploads videos aren happy company uploads videos fans smash bros animal crossing podcast live gaming news mobile games new super games switch announcement new announced animal super smash switch cutting bros fighter crossing update ea games</span><br><span class="line">Topic <span class="comment">#4: 宝可梦剑盾</span></span><br><span class="line">sword shield new snap looks like den sword shield ia hosting shiny shiny ha live new shinyden shinyraid like did live twitch unpopular opinion opinion excited twitch youtube excited tencent legends lol gonna <span class="keyword">try</span> square shiny ha volcarona volcarona den</span><br><span class="line">Topic <span class="comment">#5:有关于LOL的</span></span><br><span class="line">league legends need new pr teams release date looks fun wild rift timi studios high key cod mobile pic com salga el play league old cards developed tencent just league just realized legends wild kinda excited arena valor want play</span><br><span class="line">Topic <span class="comment">#6:免费</span></span><br><span class="line">pic com games like free play people excited really good metal slug right pic believe really like bakugan um jogo know people reuploaded trailers let johto plus actual que teria pra repetir new metal excited pic nintendoswitch mobile pay win</span><br><span class="line">Topic <span class="comment">#7:手机游戏</span></span><br><span class="line">looking forward mobile games ios android league legends banned china just want right right right time pic com tencent involved got direct looks pretty pretty good don like like just remakes let tencent working actually pretty best mobile don care</span><br><span class="line">Topic <span class="comment">#8: 哈利波特？？</span></span><br><span class="line">new video harry potter potter wizards registered catan pre registered shiny hunting streamingpic com new games caf mix twitchtv streamer hunting schwert pokemonswordshield pokemonepeebouclier pokemonepeebouclier pokemongo pokemongo streamingpic live shiny ic com video live ultrasonne smaragd schwert ultrasonne twitchstreamer pokemonswordshield</span><br><span class="line">Topic <span class="comment">#9:腾讯和华为</span></span><br><span class="line">play tencent read room like huawei huawei buy platform play cross platform games say tencent chance chance conquer conquer console ambitious cross console games gen remakes pokemongo pokemonswordshield say analysts hong kong really don like really pokemongo pokemongofriend pokemongofriend pokemonswordshield</span><br></pre></td></tr></table></figure>
+
+
+
+<p>个人感觉分的主题还是有点模糊不够准确，但通过主题词的深挖，可以看出玩家对款游戏的正面评价集中在对新玩法上的兴趣，多平台，能更好的与朋友一起玩（社交性），对游戏发布的预告视频的喜爱，免费就是王道，手机游戏才是未来趋势，moba类型游戏的喜爱，具有电子竞技的观赏性。</p>
+<p>再来看看负面的推特主题词提取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Topic <span class="comment">#0: 游戏的玩法</span></span><br><span class="line">team battle strategic team slug mobile metal slug ic com just play waiting ages play ml pe podcast mobile works works developer arena valor mobile announced new strategic good bad going talk battle just mobile likely replay pe ml stay</span><br><span class="line">Topic <span class="comment">#1: 对腾讯公司的不满</span></span><br><span class="line">getting mad ve got tencent past affect future past affect like bad new mainline xbox series saints row project warlock marvel avengers row remastered west dead community day said new sadler rule news week reveals smile released crappy rule comes</span><br><span class="line">Topic <span class="comment">#2:对中国政府对不满</span></span><br><span class="line">chinese government world explorers catan world pants play tencent involved potter wizards harry potter en el episode throw throw pants podcast podbean wasn bad wasn tencent play topics tencent company <span class="keyword">try</span> wasnt explorers fourth niantic maker ingress harry explorers new</span><br><span class="line">Topic <span class="comment">#3:对发布会的不满</span></span><br><span class="line">looks like let say say big hacia el odio hacia sword shield big announcement overhype just monster hunter feel bad social media mean company mobile team minutes non mid disappointed announcement just minutes surprise mobile pc pro trying morning est</span><br><span class="line">Topic <span class="comment">#4:关于合金弹头代号j（也是由天美公司开发）</span></span><br><span class="line">pic com metal slug slug coming new metal coming studio ic com league legends studio com studio gamespot switch mobile cross play mobile devices studio ic slug mobile slug code code metal recently announced snap people saw video fans got</span><br><span class="line">Topic <span class="comment">#5: 关于宝可梦剑盾</span></span><br><span class="line">set expectations es que properly set supporting tencent sword shield pokemongame gamer know gonna pokemookie pokemonmookie don want tencent chinese chinese government type matchups pokemongopromocode pokemonswordshield shit just remarquer que sacr bad reveal papermario people expecting people thought days ago</span><br><span class="line">Topic <span class="comment">#6:游戏发布的讨厌</span></span><br><span class="line">switch mobile people hated don think main series announcement worst warned yesterday bad warned chinese company wild rift brought snap pokemongopic com main girliest presents longer pretty saying looks like mean did rd party rift catalyst mention yesterday reveal surprised</span><br><span class="line">Topic <span class="comment">#7:树屋发布会</span></span><br><span class="line">paper mario people upset bad just tree house new bakugan smash community maybe new wanna play ve heard mass disliked mobile games account link mario shadow mobile timi probably tencent proportion like new shown new horizons really like room bad</span><br><span class="line">Topic <span class="comment">#8:游戏预告视频</span></span><br><span class="line">company uploads random company videos fans fans aren uploads videos don know aren happy release date don hate feel like coming soon ahead time weeks ago like just th ch ch th random nintendoswitchpic nintendoswitchpic com partners sleep studio partners</span><br><span class="line">Topic <span class="comment">#9:粉丝的愤怒</span></span><br><span class="line">fan curious rightfully disappointed new issue im gonna issue chinese fans react chinese involvement react new gonna play tencent launch curious com pokken snap minor release music playing pokemonswordandshield pokemonswordshieldex shady company mystery dungeon massive japan mini games reading script</span><br></pre></td></tr></table></figure>
+
+<p>负面的看法主要集中在，游戏玩法不符合传统的宝可梦回合制，抵制腾讯开发的任何游戏，对中国政府关于个人隐私权的不信任，对于另一款也是由天美工作室开发的合金弹头代号j的不满，对于游戏发布会的失望不是自己所预料的一样（正统大作），对于游戏预告的不满，认为这个游戏有违宝可梦粉丝的初心。</p>
+<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h1><p>虽然自从发布会以来，网上一片骂声，但从推特情感分析看来，也是有不少人表示感兴趣和支持。从负面的评论来看，腾讯在日后的开发上应该注重粉丝的情绪，引入更多原本的元素（属性相克，收集养成之类），不在游戏发布前搞噱头，更注重游戏的竞技性和观赏性等。这个游戏到底是一次滑铁卢还是又一次巨大的商业机会，我们拭目以待吧。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yeyifann.github.io">Ethan ye</a>
+            <p>原文链接：<a href="https://yeyifann.github.io/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/">https://yeyifann.github.io/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/</a>
+            <p>发表日期：<a href="https://yeyifann.github.io/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/">July 20th 2020, 11:41:43 am</a>
+            <p>更新日期：<a href="https://yeyifann.github.io/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/">July 20th 2020, 11:41:43 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/07/13/udacity%20A:B%20tests%202/" title= "udacity A:B tests 2">
+                    <div class="prevTitle">udacity A:B tests 2</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yeyifann@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/yeyifann" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-背景介绍"><span class="toc-number">1.</span> <span class="toc-text">1 背景介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-爬取推特数据"><span class="toc-number">2.</span> <span class="toc-text">2 爬取推特数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-数据清理"><span class="toc-number">3.</span> <span class="toc-text">3 数据清理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-情感分析"><span class="toc-number">4.</span> <span class="toc-text">4 情感分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1词频向量化和停用词"><span class="toc-number">4.1.</span> <span class="toc-text">4.1词频向量化和停用词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-词云"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 词云</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-情感分析"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 情感分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-LDA主题词提取"><span class="toc-number">5.</span> <span class="toc-text">5.LDA主题词提取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-总结"><span class="toc-number">6.</span> <span class="toc-text">6 总结</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 4
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2020/07/20/Pokemon%20unite%E7%9A%84%E6%8E%A8%E7%89%B9%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90/" >Pokemon unite的推特情感分析</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2020/07/08/A:B%20test/" >A:B test</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/13</span><a class="archive-post-title" href= "/2020/07/13/udacity%20A:B%20tests%202/" >udacity A:B tests 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/2020/07/07/credict%20scoring/" >credict scoring</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ethan ye"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
